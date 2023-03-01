@@ -1,2 +1,2 @@
-# pressden-documentation
+# wp-documentation
 A documentation plugin for WordPress
