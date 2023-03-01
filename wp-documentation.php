@@ -9,6 +9,11 @@
  * @package WPDocumentation
  */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 // Define the custom post type slug.
 define( 'WPD_SLUG', 'documentation' );
 
