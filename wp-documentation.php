@@ -69,22 +69,17 @@ add_action( 'init', 'wpd_initialize' );
  * @param object $query Instance of WP_Query object.
  */
 function wpd_restrict_frontend_access( $query ) {
-	// Exit early scenarios.
+	// Protect the documentation post type.
 	if (
-		// This is an admin query.
-		is_admin() ||
+		// The post_type query is set.
+		isset( $query->query['post_type'] ) &&
 
-		// This is not the main query.
-		! $query->is_main_query() ||
+		// This is a documentation post_type query.
+		'documentation' === $query->query['post_type'] &&
 
-		// This is not a documentation query.
-		( ! isset( $query->query['post_type'] ) || ! 'documentation' === $query->query['post_type'] )
+		// This user does not have permission to view documentation.
+		! current_user_can( 'edit_posts' )
 	) {
-		return;
-	}
-
-	// Return 404 if user does not have permission to read documentation.
-	if ( ! current_user_can( 'edit_posts' ) ) {
 		$query->set_404();
 		status_header( 404 );
 	}
