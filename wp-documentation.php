@@ -71,6 +71,9 @@ add_action( 'init', 'wpd_initialize' );
 function wpd_restrict_frontend_access( $query ) {
 	// Protect the documentation post type.
 	if (
+		// This is the main query.
+		is_main_query() &&
+
 		// The post_type query is set.
 		isset( $query->query['post_type'] ) &&
 
